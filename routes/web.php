@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
-
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +28,9 @@ Route::get("/articles/delete/{id}", [ ArticleController::class, 'delete']);
 
 Route::get("/articles/add", [ ArticleController::class, 'add']);
 Route::post("/articles/add", [ ArticleController::class, 'create']);
+
+Route::post("/comments/add", [ CommentController::class, 'create']);
+Route::get("/comments/delete/{id}", [ CommentController::class, 'delete']);
 
 Auth::routes();
 
