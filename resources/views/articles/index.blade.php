@@ -27,6 +27,7 @@
                     <p class="card-text">
                         {{ Str::limit($article -> body, 300)}}
                     </p>
+                    <p> <strong>{{ count( $article->comments )}} Comments </strong></p>
                     <a href="{{ url("/articles/detail/$article->id") }}" 
                         class="btn btn-outline-secondary">
                         View Detail

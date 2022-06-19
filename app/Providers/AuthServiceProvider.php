@@ -30,7 +30,8 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('delete-comment', function($user, $comment) {
-            return $user->id === $comment->user_id;
+            return $user->id === $comment->user_id
+                   or $user->id === $comment->article->user_id;
         });
         //
     }

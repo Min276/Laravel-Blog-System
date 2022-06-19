@@ -17,10 +17,12 @@
                 <p class="card-text">
                     {{ $article -> body }}
                 </p>
-                <a href=' {{ url("/articles/delete/$article->id") }}'
-                    class="btn btn-danger">
-                    Delete
-                </a>
+                @auth
+                    <a href=' {{ url("/articles/delete/$article->id") }}'
+                        class="btn btn-danger">
+                        Delete
+                    </a>
+                @endauth
             </div>
         </div>
         <ul class="mt-4 list-group">
@@ -35,20 +37,22 @@
             @foreach($article->comments as $comment)
                 <li class="list-group-item d-flex justify-content-between px-3">
                     <p style="margin: 0"> 
-                        {{$comment->user->name}} - {{ $comment->content }} 
+                        <strong>{{$comment->user->name}}</strong> - {{ $comment->content }} 
                     </p>
                     <a href="{{url("/comments/delete/$comment->id")}}" 
                         class="btn-link">Delete</a>
                 </li>
             @endforeach
         </ul>
-        <form action="{{ url("/comments/add") }}" method="post">
-            @csrf
-            <input type="hidden" name="article_id" value="{{ $article->id }}">
-            <textarea name="content" class="form-control bg-white mt-2 mb-4"
-            placeholder="New Comment"></textarea>
-            <input type="submit" value="Add Comment" class="btn btn-secondary">
-        </form>
+        @auth
+            <form action="{{ url("/comments/add") }}" method="post">
+                @csrf
+                <input type="hidden" name="article_id" value="{{ $article->id }}">
+                <textarea name="content" class="form-control bg-white mt-4 mb-2"
+                placeholder="New Comment"></textarea>
+                <input type="submit" value="Add Comment" class="btn btn-secondary">
+            </form>
+        @endauth
 
     </div>
 @endsection
