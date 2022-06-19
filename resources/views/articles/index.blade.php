@@ -21,6 +21,9 @@
                         {{$article -> created_at->diffForHumans()}},
                         Category: <strong>{{ $article->category->name }}</strong>
                     </small>
+                    <p>
+                        Author: <strong>{{ $article->user->name }}</strong>
+                    </p>
                     <p class="card-text">
                         {{ Str::limit($article -> body, 300)}}
                     </p>

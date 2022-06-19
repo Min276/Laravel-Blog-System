@@ -11,6 +11,9 @@
                     {{ $article -> created_at->diffForHumans()}},
                     Category: <strong>{{ $article->category->name }}</strong>
                 </small>
+                <p>
+                    Author: <strong>{{ $article->user->name }}</strong>
+                </p>
                 <p class="card-text">
                     {{ $article -> body }}
                 </p>
@@ -21,19 +24,28 @@
             </div>
         </div>
         <ul class="mt-4 list-group">
+            @if(session("message"))
+                <div class="alert alert-warning">
+                    {{session("message") }}
+                </div>
+            @endif
             <li class="list-group-item active">
                <strong>{{ count( $article->comments )}} Comments</strong>
             </li>
             @foreach($article->comments as $comment)
-                <li class="list-group-item">
-                    {{ $comment->content }}
+                <li class="list-group-item d-flex justify-content-between px-3">
+                    <p style="margin: 0"> 
+                        {{$comment->user->name}} - {{ $comment->content }} 
+                    </p>
+                    <a href="{{url("/comments/delete/$comment->id")}}" 
+                        class="btn-link">Delete</a>
                 </li>
             @endforeach
         </ul>
         <form action="{{ url("/comments/add") }}" method="post">
             @csrf
             <input type="hidden" name="article_id" value="{{ $article->id }}">
-            <textarea name="content" class="form-control mt-2 mb-4"
+            <textarea name="content" class="form-control bg-white mt-2 mb-4"
             placeholder="New Comment"></textarea>
             <input type="submit" value="Add Comment" class="btn btn-secondary">
         </form>

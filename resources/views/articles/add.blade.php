@@ -11,6 +11,15 @@
 </style>
 @section('content')
     <div class="container">
+
+        @if($errors->any())
+            <div class="alert alert-warning">
+                @foreach($errors->all() as $error)
+                    {{ $error }}
+                @endforeach
+            </div>
+        @endif
+
         <form method="POST">
             @csrf
             <div class="mb-4">
